@@ -320,7 +320,7 @@ function executarEventoKey() {//Reconhece o evento que foi clicado na página de
   }
 }
 
-function executarShareEvent () { //é Ativado quando a página inicia
+function executarShareEvent() { //é Ativado quando a página inicia
   const key = window.location.search.slice(7);
 
   //window.history.pushState("object or string", "Title", "/new-url");
@@ -645,6 +645,7 @@ function exibirMarcadores(tipoClasse, entidade) { //Função responsável para M
   for (var m = 0; m < tipoClasse.length; m++) {
     for (var n = 0; n < entidade.length; n++) {
 
+
       if (entidade[n].getTipo() === tipoClasse[m].getNome()) {
 
         if ((entidade[n].getTipo() === 'Startup' && entidade[n].getClassificacao() === document.getElementById("filtroStartup").value)
@@ -687,11 +688,20 @@ function criarURLCompartilhamento(componente) {
 
   let URL = location.href.split("?", 1) + "?share?" + componente.getAttribute("data-key")
 
-  navigator.clipboard.writeText(URL)
+  let inputURL = document.getElementById("inputCompartilhamento")
+  inputURL.value = URL
 
-  alert("Link da entidade copiado!")
+  $('#modalCompartilhamento').modal('show');
 
-  //window.location = "index.html?" + componente.getAttribute("data-key")
+  document.getElementById("btnInputCompartilhamento").addEventListener("click", function () {
+    Copiar()
+  })
+
+  function Copiar() {
+    let inputURL = document.getElementById("inputCompartilhamento")
+    inputURL.select();
+    document.execCommand('copy')
+  }
 }
 
 function zoomMarcador(componente) {
@@ -863,7 +873,7 @@ function chamarModalCadastro() {
     document.getElementById('validacaoCidadeLocal').value = ''
     document.getElementById('validacaoUFLocal').value = 1
     document.getElementById('validacaoCEPLocal').value = ''
-    document.getElementById('uploaderLabel1').innerHTML = 'Logo'
+    document.getElementById('uploaderLabel1').innerHTML = 'Logo (Tamanho sugerido: 80 x 80 px)'
     document.getElementById('uploader1').value = ''
     uploader1SelectedFile = ''
 
@@ -878,7 +888,7 @@ function chamarModalCadastro() {
     document.getElementById('validacaoCidadeEvento').value = ''
     document.getElementById('validacaoUFEvento').value = 1
     document.getElementById('validacaoCEPEvento').value = ''
-    document.getElementById('uploaderLabel2').innerHTML = 'Logo'
+    document.getElementById('uploaderLabel2').innerHTML = 'Logo (Tamanho sugerido: 80 x 80 px)'
     document.getElementById('uploader2').value = ''
     document.getElementById('dtpicker').value = ''
     uploader2SelectedFile = ''
